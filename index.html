@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Прямой эфир</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    .banner-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Размытие фона */
+    .banner-container::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: url('https://i.imgur.com/sYpM3wm.jpeg');
+      background-size: cover;
+      background-position: center;
+      filter: blur(20px);
+      transform: scale(1.1);
+      z-index: -1;
+    }
+
+    .banner-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      z-index: 0;
+    }
+
+    #liveButton {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #007BFF;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner-container">
+    <img src="https://i.imgur.com/sYpM3wm.jpeg" alt="Прямой баннер" class="banner-image">
+
+    <button id="liveButton" onclick="toggleLive()">Включение прямого эфира</button>
+
+    <audio id="radioPlayer">
+      <source src="https://listen4.myradio24.com/60315" type="audio/mpeg">
+      Ваш браузер не поддерживает аудио.
+    </audio>
+  </div>
+
+  <script>
+    function toggleLive() {
+      const player = document.getElementById('radioPlayer');
+      const button = document.getElementById('liveButton');
+
+      if (player.paused) {
+        player.play();
+        button.textContent = "Остановить эфир";
+        button.style.backgroundColor = "#4CAF50";
+      } else {
+        player.pause();
+        button.textContent = "Включение прямого эфира";
+        button.style.backgroundColor = "#007BFF";
+      }
+    }
+  </script>
+
+</body>
+</html>
