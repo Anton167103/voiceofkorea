@@ -67,11 +67,76 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
       transition: background-color 0.3s ease;
       z-index: 1;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0,123,255, 0.6); }
+      70% { box-shadow: 0 0 0 10px rgba(0,123,255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0,123,255, 0); }
     }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.9); }
       to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes wave {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(1deg) scale(1.02); }
+      100% { transform: rotate(0deg) scale(1); }
+    }
+
+    #flag {
+      animation: wave 3s infinite ease-in-out;
+      transform-origin: center;
+    }
+
+    .waves {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .wave-circle {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 50%;
+      animation: radiowave 2.5s infinite ease-out;
+    }
+
+    .wave-circle:nth-child(2) {
+      animation-delay: 0.8s;
+    }
+
+    .wave-circle:nth-child(3) {
+      animation-delay: 1.6s;
+    }
+
+    @keyframes radiowave {
+      0% {
+        transform: scale(0.5);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(2.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 10px rgba(0,255,255,0.3); }
+      50% { box-shadow: 0 0 20px rgba(0,255,255,0.6); }
+      100% { box-shadow: 0 0 10px rgba(0,255,255,0.3); }
+    }
+
+    #emblem {
+      animation: glow 2s infinite ease-in-out, fadeIn 1s ease-in-out;
     }
   </style>
 </head>
@@ -104,13 +169,16 @@
   padding: 10px;
   border-radius: 8px;
   z-index: 1;
-  box-shadow: 0 0 8px rgba(0,0,0,0.4);
-  animation: fadeIn 1s ease-in-out;
 ">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Flag_of_North_Korea.svg/320px-Flag_of_North_Korea.svg.png" alt="Флаг КНДР" style="
+  <img id="flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Flag_of_North_Korea.svg/320px-Flag_of_North_Korea.svg.png" alt="Флаг КНДР" style="
     height: 60px;
     display: block;
   ">
+  <div class="waves">
+    <div class="wave-circle"></div>
+    <div class="wave-circle"></div>
+    <div class="wave-circle"></div>
+  </div>
 </div>
 
 <div class="banner-container">
@@ -133,15 +201,13 @@
       player.play();
       button.textContent = "Остановить эфир";
       button.style.backgroundColor = "#4CAF50";
-
-      // Вход в полноэкранный режим
+      button.style.animation = "none";
       openFullscreen();
     } else {
       player.pause();
       button.textContent = "Включение прямого эфира";
       button.style.backgroundColor = "#007BFF";
-
-      // Выход из полноэкранного режима
+      button.style.animation = "pulse 2s infinite";
       if (document.fullscreenElement) {
         document.exitFullscreen();
       }
@@ -189,10 +255,6 @@
     }, 600);
   }
 
-  setInterval(updateDateTime, 1000);
-  updateDateTime();
-</script>
+  setInterval(updateDateTime, 1000
 
-</body>
-</html>
 
