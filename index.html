@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8QYFSL01H7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-8QYFSL01H7');
-</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QYFSL01H7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8QYFSL01H7');
+  </script>
 
   <meta charset="UTF-8">
   <title>Радио Голос Кореи Прямой эфир</title>
@@ -29,7 +28,6 @@
       overflow: hidden;
     }
 
-    /* Размытие фона */
     .banner-container::before {
       content: "";
       position: absolute;
@@ -70,13 +68,11 @@
       transition: background-color 0.3s ease;
       z-index: 1;
     }
-<style>
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-  }
-</style>
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
   </style>
 </head>
 <body>
@@ -98,12 +94,6 @@
 ">
   <div id="date">📅 06.08.2025</div>
   <div id="time">⏰ 17:13:27</div>
-
-
-
-
-
-
 </div>  
 
 <div id="emblem" style="
@@ -123,34 +113,52 @@
   ">
 </div>
 
-
 <div class="banner-container">
-    <img src="https://i.imgur.com/sYpM3wm.jpeg" alt="Прямой баннер" class="banner-image">
+  <img src="https://i.imgur.com/sYpM3wm.jpeg" alt="Прямой баннер" class="banner-image">
 
-    <button id="liveButton" onclick="toggleLive()">Включение прямого эфира</button>
+  <button id="liveButton" onclick="toggleLive()">Включение прямого эфира</button>
 
-    <audio id="radioPlayer">
-      <source src="https://listen4.myradio24.com/60315" type="audio/mpeg">
-      Ваш браузер не поддерживает аудио.
-    </audio>
-  </div>
+  <audio id="radioPlayer">
+    <source src="https://listen4.myradio24.com/60315" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+  </audio>
+</div>
 
-  <script>
-    function toggleLive() {
-      const player = document.getElementById('radioPlayer');
-      const button = document.getElementById('liveButton');
+<script>
+  function toggleLive() {
+    const player = document.getElementById('radioPlayer');
+    const button = document.getElementById('liveButton');
 
-      if (player.paused) {
-        player.play();
-        button.textContent = "Остановить эфир";
-        button.style.backgroundColor = "#4CAF50";
-      } else {
-        player.pause();
-        button.textContent = "Включение прямого эфира";
-        button.style.backgroundColor = "#007BFF";
+    if (player.paused) {
+      player.play();
+      button.textContent = "Остановить эфир";
+      button.style.backgroundColor = "#4CAF50";
+
+      // Вход в полноэкранный режим
+      openFullscreen();
+    } else {
+      player.pause();
+      button.textContent = "Включение прямого эфира";
+      button.style.backgroundColor = "#007BFF";
+
+      // Выход из полноэкранного режима
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
       }
     }
-  </script>
+  }
+
+  function openFullscreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    }
+  }
+</script>
 
 <script>
   function updateDateTime() {
@@ -172,11 +180,9 @@
     dateEl.textContent = dateString;
     timeEl.textContent = timeString;
 
-    // Добавляем класс анимации
     dateEl.classList.add('fade-update');
     timeEl.classList.add('fade-update');
 
-    // Удаляем класс после завершения анимации
     setTimeout(() => {
       dateEl.classList.remove('fade-update');
       timeEl.classList.remove('fade-update');
@@ -186,5 +192,7 @@
   setInterval(updateDateTime, 1000);
   updateDateTime();
 </script>
+
 </body>
 </html>
+
